@@ -19,7 +19,7 @@ public class Method_02_Test {
         // TODO créer une méthode String format()
         // TODO la méthode retourne une chaîne de la forme [<nb_personnes> persons]
         // TODO exemple de résultat : "[14 persons]", "[30 persons]"
-        default String format(){
+        default String format() {
             return new StringBuilder("[")
                     .append(findAll().size())
                     .append(" persons]")
@@ -43,8 +43,8 @@ public class Method_02_Test {
         // TODO exemple de résultat : "DaoA[14 persons]", "DaoA[30 persons]"
         // TODO l'implémentation réutilise la méthode format() de l'interface
         @Override
-        public String format(){
-            return this.getClass().getSimpleName()+IDao.super.format();
+        public String format() {
+            return this.getClass().getSimpleName() + IDao.super.format();
         }
     }
     // end::DaoA[]

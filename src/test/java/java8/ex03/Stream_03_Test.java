@@ -29,7 +29,7 @@ public class Stream_03_Test {
 		List<Order> orders = new Data().getOrders();
 
 		// TODO Retrouver la commande avec le prix le plus élevé
-		Optional<Order> result = null;
+		Optional<Order> result = orders.stream().max(Comparator.comparing(Order::getPrice));
 
 		assertThat(result.isPresent(), is(true));
 		assertThat(result.get().getPrice(), is(2200.0));
@@ -40,8 +40,8 @@ public class Stream_03_Test {
 
 		List<Order> orders = new Data().getOrders();
 
-		// TODO Retrouver la commande avec le prix le plus élevé
-		Optional<Order> result = null;
+		// TODO Retrouver la commande avec le prix le plus nim
+		Optional<Order> result = orders.stream().min(Comparator.comparing(Order::getPrice));
 
 		assertThat(result.isPresent(), is(true));
 		assertThat(result.get().getPrice(), is(1000.0));

@@ -36,12 +36,12 @@ public class Stream_07_Test {
 
     // TODO créer une fonction List<Pizza> -> List<Pizza>
     // TODO seules les pizzas ayant un prix >= 1000 sont conservées
-    Function<List<Pizza>, List<Pizza>> filterPizza = null;
+    Function<List<Pizza>, List<Pizza>> filterPizza = pizzas -> pizzas.stream().filter(p->p.getPrice()>=1000).collect(Collectors.toList());
 
     // TODO créer une fonction List<Pizza> -> List<Pizza>
     // TODO seules les pizzas ayant un prix >= 1000 sont conservées
     // TODO .parallel()
-    Function<List<Pizza>, List<Pizza>> parallelFilterPizza = null;
+    Function<List<Pizza>, List<Pizza>> parallelFilterPizza = pizzas -> pizzas.stream().parallel().filter(p->p.getPrice()>=1000).collect(Collectors.toList());;
 
     // TODO exécuter le test pour visualiser le temps d'exécution
     @Test
@@ -53,7 +53,9 @@ public class Stream_07_Test {
     // De mon côté :
     // INFO: arrayList=21 ms
     // INFO: linkedList=21 ms
-
+// pas de différence flagrante entre une ArrayList et une linkedList
+//    INFO: arrayList=17 ms
+//    INFO: linkedList=15 ms
 
     // TODO exécuter le test pour visualiser le temps d'exécution
     @Test
@@ -64,7 +66,9 @@ public class Stream_07_Test {
     // Que constatez-vous ?
     // INFO: arrayList=15 ms
     // INFO: linkedList=83 ms
-
+// parallel est plus adapté à une ArrayList (liste ordrée et définie)
+//    INFO: arrayList=12 ms
+//    INFO: linkedList=51 ms
     public void arraylist_vs_linkedlist(Function<List<Pizza>, List<Pizza>> fn) throws Exception {
 
         int nbPizzas = 1000000;

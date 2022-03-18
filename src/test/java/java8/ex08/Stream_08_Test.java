@@ -106,8 +106,9 @@ public class Stream_08_Test {
     @Test
     public void test_collectingAndThen() throws IOException {
         // TODO utiliser la méthode java.nio.file.Files.lines pour créer un stream de lignes du fichier naissances_depuis_1900.csv
+        Path pathFile = Paths.get(NAISSANCES_DEPUIS_1900_CSV);
         // Le bloc try(...) permet de fermer (close()) le stream après utilisation
-        try (Stream<String> lines = null) {
+        try (Stream<String> lines = Files.lines(pathFile, StandardCharsets.UTF_8)) {
 
             // TODO construire une MAP (clé = année de naissance, valeur = maximum de nombre de naissances)
             // TODO utiliser la méthode "collectingAndThen" à la suite d'un "grouping"
@@ -129,8 +130,9 @@ public class Stream_08_Test {
 
     @Test
     public void test_pizzaData() throws IOException {
+        Path pathDirectory = Paths.get(DATA_DIR);
         // TODO utiliser la méthode java.nio.file.Files.list pour parcourir un répertoire
-
+        Stream<Path> walk = Files.walk(pathDirectory);
         // TODO trouver la pizza la moins chère
         String pizzaNamePriceMin = null;
 

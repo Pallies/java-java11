@@ -1,5 +1,7 @@
 package java8.ex08;
 
+import java8.data.Data;
+import java8.data.domain.Pizza;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -142,9 +144,10 @@ public class Stream_08_Test {
 
     @Test
     public void test_pizzaData() throws IOException {
-        Path pathDirectory = Paths.get(DATA_DIR);
+//        Path pathDirectory = Paths.get(DATA_DIR);
         // TODO utiliser la méthode java.nio.file.Files.list pour parcourir un répertoire
-        Stream<Path> walk = Files.walk(pathDirectory);
+//        Stream<Path> walk = Files.walk(pathDirectory);
+       // pas de fichier --^^--
         // TODO trouver la pizza la moins chère
         String pizzaNamePriceMin = null;
 

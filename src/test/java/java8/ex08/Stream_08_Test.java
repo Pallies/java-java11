@@ -9,12 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -47,7 +45,7 @@ public class Stream_08_Test {
 
         public Naissance(String str) {
             List<String> stringList = List.of(str.split(";"));
-            this.annee=stringList.get(1);
+            this.annee = stringList.get(1);
             this.jour = stringList.get(2);
             this.nombre = Integer.parseInt(stringList.get(3));
         }
@@ -75,6 +73,7 @@ public class Stream_08_Test {
         public void setNombre(Integer nombre) {
             this.nombre = nombre;
         }
+
     }
 
 
@@ -122,11 +121,13 @@ public class Stream_08_Test {
         // TODO utiliser la méthode java.nio.file.Files.lines pour créer un stream de lignes du fichier naissances_depuis_1900.csv
         Path pathFile = Paths.get(NAISSANCES_DEPUIS_1900_CSV);
         // Le bloc try(...) permet de fermer (close()) le stream après utilisation
-        try (Stream<String> lines = Files.lines(pathFile, StandardCharsets.UTF_8)) {
 
+        try (Stream<String> lines = Files.lines(pathFile, StandardCharsets.UTF_8)) {
             // TODO construire une MAP (clé = année de naissance, valeur = maximum de nombre de naissances)
             // TODO utiliser la méthode "collectingAndThen" à la suite d'un "grouping"
-            Map<String, Naissance> result = null;
+            Map<String, Naissance> result = lines.skip(1).map(Naissance::new)
+                    .collect(Collectors.groupingBy(Naissance::getAnnee,
+                            Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(Naissance::getNombre)),n->n.orElse(null))));
 
             assertThat(result.get("2015").getNombre(), is(38));
             assertThat(result.get("2015").getJour(), is("20150909"));
@@ -147,7 +148,7 @@ public class Stream_08_Test {
 //        Path pathDirectory = Paths.get(DATA_DIR);
         // TODO utiliser la méthode java.nio.file.Files.list pour parcourir un répertoire
 //        Stream<Path> walk = Files.walk(pathDirectory);
-       // pas de fichier --^^--
+        // pas de fichier --^^--
         // TODO trouver la pizza la moins chère
         String pizzaNamePriceMin = null;
 
